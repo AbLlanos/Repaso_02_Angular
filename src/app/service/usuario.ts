@@ -1,50 +1,45 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Usuario } from '../components/registro/usuario';
 
 @Injectable({
   providedIn: 'root',
 })
-export class Usuario {
+export class usuarioService {
 
 
    private API_USUARIO = "http://localhost:8080/usuario"
 
    constructor(private http: HttpClient){}
 
+   //leer todos los ususairos
     leerUsuario(): Observable<Usuario[]>{
       return this.http.get<Usuario[]>(this.API_USUARIO)
     }
 
+    //guardar usuario
     guardarUsuario(usuario: Usuario): Observable<Usuario>{
       return this.http.post<Usuario>(`${this.API_USUARIO}/guardar` , usuario);
     }
 
+    //Eliminar usuario
+    eliminarUsuario(id: string): Observable<void>{
+      return this.http.delete<void>(`${this.API_USUARIO}/eliminar/${id}`);
+    }
 
-  // Leer todos los clientes
-  leerClientes(): Observable<Cliente[]> {
-    return this.http.get<Cliente[]>(this.API_CLIENTE);
-  }
+    //editar Usuario
+    editarUsuario(id:string, usuario:Usuario):Observable<Usuario>{
+      return this.http.put<Usuario>(`${this.API_USUARIO}/editarUsuario/${id}`, usuario);
+    }
 
-  // Guardar cliente
-  guardarCliente(cliente: Cliente): Observable<Cliente> {
-    return this.http.post<Cliente>(`${this.API_CLIENTE}/guardar`, cliente);
-  }
 
-  // Buscar cliente por ID
+
+  /* Buscar cliente por ID
   buscarClienteById(id: string): Observable<Cliente> {
     return this.http.get<Cliente>(`${this.API_CLIENTE}/${id}`);
   }
-
-  // Eliminar cliente
-  eliminarCliente(id: string): Observable<void> {
-    return this.http.delete<void>(`${this.API_CLIENTE}/eliminar/${id}`);
-  }
-
-  // Editar cliente
-  editarCliente(id: string, cliente: Cliente): Observable<Cliente> {
-    return this.http.put<Cliente>(`${this.API_CLIENTE}/actualizar/${id}`, cliente);
-  }
+*/
 
   
 }
